@@ -1,157 +1,389 @@
 <!doctype html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
 
   <meta
+
     name="viewport"
+
     content="width=device-width, initial-scale=1, viewport-fit=cover"
+
   >
 
-  <meta name="theme-color" content="#0b3a83">
+  <meta name="theme-color" content="#031d2d">
+
   <meta name="apple-mobile-web-app-title" content="PCCU Safety Tracker">
+
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <meta name="mobile-web-app-capable" content="yes">
 
   <title>PCCU Safety Tracker</title>
 
+  <!-- Current and older iPhone/iPad icons -->
+
   <link
+
     rel="apple-touch-icon"
+
     sizes="180x180"
-    href="./apple-touch-icon.png?v=2"
+
+    href="./apple-touch-icon.png?v=3"
+
   >
 
   <link
+
+    rel="apple-touch-icon-precomposed"
+
+    sizes="180x180"
+
+    href="./apple-touch-icon.png?v=3"
+
+  >
+
+  <link
+
+    rel="apple-touch-icon"
+
+    sizes="167x167"
+
+    href="./icon-167.png?v=3"
+
+  >
+
+  <link
+
+    rel="apple-touch-icon"
+
+    sizes="152x152"
+
+    href="./icon-152.png?v=3"
+
+  >
+
+  <link
+
+    rel="apple-touch-icon"
+
+    sizes="120x120"
+
+    href="./icon-120.png?v=3"
+
+  >
+
+  <!-- Android and browser icons -->
+
+  <link
+
     rel="icon"
+
     type="image/png"
+
     sizes="192x192"
-    href="./icon-192.png?v=2"
+
+    href="./icon-192.png?v=3"
+
   >
 
   <link
+
     rel="icon"
+
     type="image/png"
+
     sizes="512x512"
-    href="./icon-512.png?v=2"
+
+    href="./icon-512.png?v=3"
+
   >
 
-  <link rel="manifest" href="./manifest.webmanifest?v=2">
+  <link rel="manifest" href="./manifest.webmanifest?v=3">
+
+  <!-- Prepare the Apps Script connection without loading it yet -->
 
   <link rel="preconnect" href="https://script.google.com">
+
   <link rel="dns-prefetch" href="//script.google.com">
+
   <link rel="dns-prefetch" href="//script.googleusercontent.com">
 
   <style>
+
     * {
+
       box-sizing: border-box;
+
+      -webkit-tap-highlight-color: transparent;
+
     }
 
     html,
+
     body {
+
       width: 100%;
+
       min-height: 100%;
+
       margin: 0;
-      background: #eef7ff;
-      color: #12344d;
+
+      background: #031d2d;
+
       font-family: Arial, Helvetica, sans-serif;
+
     }
 
     body {
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
-      padding: 24px;
+
+      min-height: 100vh;
+
+      min-height: 100dvh;
+
+      padding:
+
+        calc(30px + env(safe-area-inset-top))
+
+        22px
+
+        calc(34px + env(safe-area-inset-bottom));
+
+      color: #ffffff;
+
       text-align: center;
+
     }
 
-    .install-card {
+    .launcher {
+
       width: 100%;
-      max-width: 430px;
-      padding: 30px 22px;
-      background: #ffffff;
-      border: 2px solid #b9dced;
-      border-radius: 28px;
-      box-shadow: 0 12px 36px rgba(11, 58, 131, 0.14);
+
+      max-width: 470px;
+
+      margin: auto;
+
     }
 
     .app-icon {
+
       display: block;
-      width: 128px;
-      height: 128px;
-      margin: 0 auto 20px;
-      border-radius: 28px;
-      box-shadow: 0 8px 22px rgba(11, 58, 131, 0.22);
+
+      width: min(56vw, 230px);
+
+      height: min(56vw, 230px);
+
+      margin: 0 auto 30px;
+
+      border: 4px solid rgba(255, 255, 255, 0.28);
+
+      border-radius: 48px;
+
+      object-fit: cover;
+
+      background: #ffffff;
+
+      box-shadow:
+
+        0 18px 50px rgba(0, 0, 0, 0.38),
+
+        0 0 32px rgba(40, 185, 239, 0.22);
+
     }
 
     h1 {
-      margin: 0 0 14px;
-      color: #0b3a83;
-      font-size: 27px;
-      line-height: 1.15;
+
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: clamp(34px, 9vw, 54px);
+
+      line-height: 1.08;
+
+      font-weight: 800;
+
+      letter-spacing: -1px;
+
     }
 
-    p {
-      margin: 10px 0;
-      color: #506575;
-      font-size: 17px;
-      line-height: 1.5;
-    }
+    .subtitle {
 
-    .instruction {
-      margin-top: 22px;
-      padding: 16px;
-      background: #edf7ff;
-      border-radius: 16px;
-      color: #173d59;
-      font-size: 17px;
+      margin: 24px auto 0;
+
+      color: #bfeaff;
+
+      font-size: clamp(19px, 5.5vw, 28px);
+
+      line-height: 1.35;
+
       font-weight: 700;
-      line-height: 1.45;
+
     }
+
+    .open-button {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      width: 100%;
+
+      min-height: 82px;
+
+      margin-top: 52px;
+
+      padding: 20px;
+
+      border: 0;
+
+      border-radius: 28px;
+
+      background: linear-gradient(180deg, #56ddf6 0%, #21b8e5 100%);
+
+      box-shadow:
+
+        0 14px 34px rgba(0, 0, 0, 0.28),
+
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+      color: #032844;
+
+      font-size: clamp(22px, 6vw, 31px);
+
+      line-height: 1.15;
+
+      font-weight: 900;
+
+      text-decoration: none;
+
+      text-transform: uppercase;
+
+    }
+
+    .open-button:active {
+
+      transform: scale(0.985);
+
+      opacity: 0.94;
+
+    }
+
+    .install-note {
+
+      margin: 28px auto 0;
+
+      color: rgba(255, 255, 255, 0.76);
+
+      font-size: 15px;
+
+      line-height: 1.5;
+
+    }
+
+    @media (max-height: 650px) {
+
+      body {
+
+        align-items: flex-start;
+
+      }
+
+      .app-icon {
+
+        width: 145px;
+
+        height: 145px;
+
+        margin-bottom: 20px;
+
+        border-radius: 34px;
+
+      }
+
+      .open-button {
+
+        min-height: 66px;
+
+        margin-top: 28px;
+
+      }
+
+      .install-note {
+
+        margin-top: 18px;
+
+      }
+
+    }
+
   </style>
 
-  <script>
-    (function () {
-      var query = new URLSearchParams(window.location.search);
-
-      var launchedFromManifest =
-        query.get("launch") === "1";
-
-      var launchedStandalone =
-        window.navigator.standalone === true ||
-        (
-          window.matchMedia &&
-          window.matchMedia("(display-mode: standalone)").matches
-        );
-
-      if (launchedFromManifest || launchedStandalone) {
-        window.location.replace(
-          "https://script.google.com/macros/s/AKfycbxDIgWUsA9VqD9SKBZcWZsDwOSiYUoXAlgWmmJsMDFuSABbKZB5mE3qkDuYpHzCrZ5y/exec"
-        );
-      }
-    })();
-  </script>
 </head>
 
 <body>
-  <main class="install-card">
+
+  <main class="launcher">
+
     <img
+
       class="app-icon"
-      src="./apple-touch-icon.png?v=2"
-      alt="PCCU Safety Tracker icon"
-      width="128"
-      height="128"
+
+      src="./apple-touch-icon.png?v=3"
+
+      alt="PCCU Safety Tracker"
+
+      width="230"
+
+      height="230"
+
+      decoding="async"
+
     >
 
     <h1>PCCU Safety Tracker</h1>
 
-    <p>
-      Install the tracker using the customized PCCU home-screen icon.
+    <p class="subtitle">
+
+      Pediatric Critical Care Unit<br>
+
+      Safety Issue Tracker
+
     </p>
 
-    <div class="instruction">
-      On iPhone, tap Share, select “Add to Home Screen,” then tap “Add.”
-    </div>
+    <a
+
+      class="open-button"
+
+      href="https://script.google.com/macros/s/AKfycbxDIgWUsA9VqD9SKBZcWZsDwOSiYUoXAlgWmmJsMDFuSABbKZB5mE3qkDuYpHzCrZ5y/exec"
+
+    >
+
+      Open PCCU Safety Tracker
+
+    </a>
+
+    <p class="install-note">
+
+      Install this launcher on your home screen to keep the customized PCCU icon.
+
+    </p>
+
   </main>
+
 </body>
+
 </html>
