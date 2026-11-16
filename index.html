@@ -11,6 +11,7 @@
   <meta name="theme-color" content="#0b3a83">
   <meta name="apple-mobile-web-app-title" content="PCCU Safety Tracker">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="mobile-web-app-capable" content="yes">
 
   <title>PCCU Safety Tracker</title>
@@ -18,46 +19,139 @@
   <link
     rel="apple-touch-icon"
     sizes="180x180"
-    href="./apple-touch-icon.png"
+    href="./apple-touch-icon.png?v=2"
   >
 
   <link
     rel="icon"
     type="image/png"
     sizes="192x192"
-    href="./icon-192.png"
+    href="./icon-192.png?v=2"
   >
 
   <link
     rel="icon"
     type="image/png"
     sizes="512x512"
-    href="./icon-512.png"
+    href="./icon-512.png?v=2"
   >
 
-  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="manifest" href="./manifest.webmanifest?v=2">
 
-  <meta
-    http-equiv="refresh"
-    content="0;url=https://script.google.com/macros/s/AKfycbxDIgWUsA9VqD9SKBZcWZsDwOSiYUoXAlgWmmJsMDFuSABbKZB5mE3qkDuYpHzCrZ5y/exec"
-  >
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="dns-prefetch" href="//script.google.com">
+  <link rel="dns-prefetch" href="//script.googleusercontent.com">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html,
     body {
       width: 100%;
-      height: 100%;
+      min-height: 100%;
       margin: 0;
+      background: #eef7ff;
+      color: #12344d;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .install-card {
+      width: 100%;
+      max-width: 430px;
+      padding: 30px 22px;
       background: #ffffff;
+      border: 2px solid #b9dced;
+      border-radius: 28px;
+      box-shadow: 0 12px 36px rgba(11, 58, 131, 0.14);
+    }
+
+    .app-icon {
+      display: block;
+      width: 128px;
+      height: 128px;
+      margin: 0 auto 20px;
+      border-radius: 28px;
+      box-shadow: 0 8px 22px rgba(11, 58, 131, 0.22);
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      color: #0b3a83;
+      font-size: 27px;
+      line-height: 1.15;
+    }
+
+    p {
+      margin: 10px 0;
+      color: #506575;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .instruction {
+      margin-top: 22px;
+      padding: 16px;
+      background: #edf7ff;
+      border-radius: 16px;
+      color: #173d59;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.45;
     }
   </style>
 
   <script>
-    window.location.replace(
-      "https://script.google.com/macros/s/AKfycbxDIgWUsA9VqD9SKBZcWZsDwOSiYUoXAlgWmmJsMDFuSABbKZB5mE3qkDuYpHzCrZ5y/exec"
-    );
+    (function () {
+      var query = new URLSearchParams(window.location.search);
+
+      var launchedFromManifest =
+        query.get("launch") === "1";
+
+      var launchedStandalone =
+        window.navigator.standalone === true ||
+        (
+          window.matchMedia &&
+          window.matchMedia("(display-mode: standalone)").matches
+        );
+
+      if (launchedFromManifest || launchedStandalone) {
+        window.location.replace(
+          "https://script.google.com/macros/s/AKfycbxDIgWUsA9VqD9SKBZcWZsDwOSiYUoXAlgWmmJsMDFuSABbKZB5mE3qkDuYpHzCrZ5y/exec"
+        );
+      }
+    })();
   </script>
 </head>
 
-<body></body>
+<body>
+  <main class="install-card">
+    <img
+      class="app-icon"
+      src="./apple-touch-icon.png?v=2"
+      alt="PCCU Safety Tracker icon"
+      width="128"
+      height="128"
+    >
+
+    <h1>PCCU Safety Tracker</h1>
+
+    <p>
+      Install the tracker using the customized PCCU home-screen icon.
+    </p>
+
+    <div class="instruction">
+      On iPhone, tap Share, select “Add to Home Screen,” then tap “Add.”
+    </div>
+  </main>
+</body>
 </html>
