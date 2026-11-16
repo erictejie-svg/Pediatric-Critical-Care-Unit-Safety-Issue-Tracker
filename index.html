@@ -16,7 +16,7 @@
 
   <title>PCCU Safety Tracker</title>
 
-  <!-- General fallback for old and new iPhones -->
+  <!-- Apple fallback icon -->
   <link
     rel="apple-touch-icon"
     href="./apple-touch-icon.png?v=4"
@@ -53,7 +53,7 @@
     href="./icon-167.png?v=4"
   >
 
-  <!-- Current iPhones -->
+  <!-- Current Apple devices -->
   <link
     rel="apple-touch-icon"
     sizes="180x180"
@@ -139,10 +139,26 @@
 
   <link rel="manifest" href="./manifest.webmanifest?v=4">
 
-  <!-- Prepare the Apps Script connection without opening it -->
+  <!-- Prepare the Apps Script connection -->
   <link rel="preconnect" href="https://script.google.com">
   <link rel="dns-prefetch" href="//script.google.com">
   <link rel="dns-prefetch" href="//script.googleusercontent.com">
+
+  <!-- Detect installed home-screen mode -->
+  <script>
+    (function () {
+      var installed =
+        window.navigator.standalone === true ||
+        (
+          window.matchMedia &&
+          window.matchMedia("(display-mode: standalone)").matches
+        );
+
+      if (installed) {
+        document.documentElement.classList.add("installed-app");
+      }
+    })();
+  </script>
 
   <style>
     * {
@@ -292,6 +308,20 @@
       line-height: 1.45;
     }
 
+    /*
+      Hide installation instructions when the launcher is opened
+      from an installed home-screen icon.
+    */
+    .installed-app .install-heading,
+    .installed-app .instruction,
+    .installed-app .important-note {
+      display: none;
+    }
+
+    .installed-app .open-button {
+      margin-top: 45px;
+    }
+
     @media (max-width: 360px) {
       body {
         padding-left: 16px;
@@ -413,7 +443,7 @@
     </section>
 
     <p class="important-note">
-      Install this launcher while the GitHub page is visible.
+      Install this launcher while this page is visible.
       Do not open the Apps Script page before installing if you
       want to keep the customized PCCU icon.
     </p>
